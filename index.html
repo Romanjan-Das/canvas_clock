@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas_" style="border: 1px solid black;" width="960px" height="960px"></canvas>
+    <img id="clock" src="clock face.png" alt="" style="display: none;">
+    <script>
+        var p=0; var q=0; const r=320; var deg=-85; const l=(Math.PI/180).toFixed(5); var timer=0;
+        window.onload=function(){
+            const canvas=document.getElementById("canvas_");
+            const ctx=canvas.getContext("2d");
+            const img=document.getElementById("clock");
+            ctx.drawImage(img,0,0);
+            ctx.beginPath();
+            ctx.lineWidth=5;
+            ctx.moveTo(480,480);
+            ctx.lineTo(480,160);
+            ctx.strokeStyle="red";
+            ctx.stroke();
+        }
+        function myFunction(){
+            const canvas=document.getElementById("canvas_");
+            const ctx=canvas.getContext("2d");
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            const img=document.getElementById("clock");
+            ctx.drawImage(img,0,0);
+            ctx.beginPath();
+            ctx.lineWidth=5;
+            ctx.moveTo(480,480);
+            p=480+r*Math.cos(l*deg).toFixed(5);
+            q=480+r*Math.sin(l*deg).toFixed(5);
+            if(deg<360){
+                deg=deg+6;
+            }
+            else{
+                deg=0;
+            }
+            timer++;
+            console.log(deg+85,timer);
+            ctx.lineTo(p,q);
+            ctx.strokeStyle="red";
+            ctx.stroke();
+        }
+        window.setInterval(() => {
+            myFunction();
+        }, 1000);
+    </script>
+</body>
+</html>

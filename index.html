@@ -9,8 +9,8 @@
     <canvas id="canvas_" style="border: 1px solid black;" width="960px" height="960px"></canvas>
     <img id="clock" src="clock face.png" alt="" style="display: none;">
     <script>
-        var p=0; var q=0; const r=320; var deg=-85; const l=(Math.PI/180).toFixed(5); 
-        var seconds=0; var minutes=0; var hours=0;
+        var p=0; var q=0; const r=320; const r2=220; var deg=-85; const l=(Math.PI/180).toFixed(5); 
+        var seconds=0; var minutes=45; var hours=45;
         var u=0; var v=0;
         window.onload=function(){
             const canvas=document.getElementById("canvas_");
@@ -30,6 +30,14 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
             const img=document.getElementById("clock");
             ctx.drawImage(img,0,0);
+
+            // hour cursor
+            ctx.beginPath();
+            ctx.lineWidth=20;
+            ctx.moveTo(480,480);
+            ctx.lineTo(480+r2*Math.cos(l*30*hours).toFixed(5),480+r2*Math.sin(l*30*hours).toFixed(5)); 
+            ctx.strokeStyle="black";
+            ctx.stroke();
 
             // minute cursor
             ctx.beginPath();
@@ -51,16 +59,23 @@
             else{
                 deg=0;
             }
+            if(minutes==105){
+                minutes=45;
+                hours++;
+            }
+            if(seconds==60){
+                seconds=0;
+                minutes++;
+            }
             seconds++;
-            minutes=parseInt(seconds/60);
-            console.log(deg+85,seconds,minutes);
+            console.log(deg+85,seconds,minutes,hours);
             ctx.lineTo(p,q);
             ctx.strokeStyle="red";
             ctx.stroke();
         }
         window.setInterval(() => {
             myFunction();
-        }, 100);
+        }, 1);
     </script>
 </body>
 </html>
